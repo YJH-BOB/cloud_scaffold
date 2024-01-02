@@ -44,6 +44,7 @@
         <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>
         <druid-starter.version>1.2.18</druid-starter.version>
         <hutool-all.version>5.8.24</hutool-all.version>
+        <fastjson.version>2.0.42</fastjson.version>
     </properties>
 
     <!-- 管理子类共有依赖 -->
@@ -96,6 +97,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
