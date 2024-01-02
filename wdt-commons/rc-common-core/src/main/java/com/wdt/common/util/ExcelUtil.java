@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class ExcelUtil {
     private static void downLoadExcel(String fileName, HttpServletResponse response, Workbook workbook) throws IOException {
         response.setCharacterEncoding(CHARSET_UTF8);
         response.setContentType(CONTENT_TYPE_EXCEL);
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, CHARSET_UTF8));
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
         workbook.write(response.getOutputStream());
     }
 
