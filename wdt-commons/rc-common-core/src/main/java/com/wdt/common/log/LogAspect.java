@@ -1,6 +1,7 @@
 package com.wdt.common.log;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wdt.common.model.SysUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +13,9 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 
@@ -72,18 +73,14 @@ public class LogAspect {
         HttpServletRequest request = attributes.getRequest();
         String user = request.getHeader("user");
         return Optional.ofNullable(user)
-                .map(userStr -> decodeUser(userStr))
-                .map(SysUser::getUserId)
+                .map(this::decodeUser)
+                .map(SysUser::getId)
                 .orElse(null);
     }
 
     private SysUser decodeUser(String userStr) {
-        try {
-            userStr = URLDecoder.decode(userStr, "utf-8");
-            return JSONObject.parseObject(userStr, SysUser.class);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        userStr = URLDecoder.decode(userStr, StandardCharsets.UTF_8);
+        return JSONObject.parseObject(userStr, SysUser.class);
     }
 
 
