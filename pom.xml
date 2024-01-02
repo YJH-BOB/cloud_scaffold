@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 定义项目基本信息 -->
+    <groupId>com.wdt</groupId>
+    <artifactId>cloud-scaffold</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+    <name>scaffold</name>
+    <description>spring_cloud开发脚手架</description>
+
+
+    <!-- 定义项目模块 -->
+    <modules>
+        <!-- 公共核心包 -->
+        <module>wdt-commons</module>
+        <!-- 认证 -->
+        <module>wdt-oauth2</module>
+        <!-- 网关 -->
+        <module>wdt-gateway</module>
+        <!-- 文件上传下载 -->
+        <module>wdt-file</module>
+        <!-- 站内信 -->
+        <module>wdt-websocket</module>
+        <!-- 数据同步 -->
+        <module>wdt-datasync</module>
+        <!-- 业务 -->
+        <module>wdt-business</module>
+    </modules>
+
+    <!-- 统一管理版本版本 -->
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
+        <spring-boot-dependencies.version>3.1.6</spring-boot-dependencies.version>
+        <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
+        <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>
+        <druid-starter>1.2.18</druid-starter>
+    </properties>
+
+    <!-- 管理子类共有依赖 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 数据库操作相关相关依赖 -->
+            <!-- mybatis-plus 3.0 版本启动器集成了mybatis的依赖，因此无需单独引入 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-starter}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+    <!-- maven构建打包执行 -->
+    <build>
+        <!-- 统一管理插件 -->
+        <pluginManagement>
+            <plugins>
+                <!-- 指定jdk版本，和指定编码 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <!-- 应用程序打包成可执行的 Jar 文件 -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-dependencies.version}</version>
+                </plugin>
+                <!-- 跳过单元测试 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- 定义开发者信息 -->
+    <developers>
+        <developer>
+            <name>DongTao Wang</name>
+            <email>tryfovik@163.com</email>
+            <organizationUrl>https://gitee.com/wangdongtao/cloud-scaffold.git</organizationUrl>
+            <url>https://gitee.com/wangdongtao/cloud-scaffold.git</url>
+        </developer>
+    </developers>
+</project>
