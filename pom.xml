@@ -40,6 +40,7 @@
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
         <spring-boot-dependencies.version>3.1.6</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
+        <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>
         <druid-starter>1.2.18</druid-starter>
     </properties>
@@ -70,6 +71,11 @@
             </dependency>
             <!-- 数据库操作相关相关依赖 -->
             <!-- mybatis-plus 3.0 版本启动器集成了mybatis的依赖，因此无需单独引入 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
