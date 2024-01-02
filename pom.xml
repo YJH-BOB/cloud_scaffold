@@ -42,7 +42,8 @@
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>
-        <druid-starter>1.2.18</druid-starter>
+        <druid-starter.version>1.2.18</druid-starter.version>
+        <hutool-all.version>5.8.24</hutool-all.version>
     </properties>
 
     <!-- 管理子类共有依赖 -->
@@ -84,12 +85,17 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-starter}</version>
+                <version>${druid-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.wdt</groupId>
                 <artifactId>rc-common-core</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
