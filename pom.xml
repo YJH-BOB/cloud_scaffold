@@ -86,6 +86,11 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid-starter}</version>
             </dependency>
+            <dependency>
+                <groupId>com.wdt</groupId>
+                <artifactId>rc-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
