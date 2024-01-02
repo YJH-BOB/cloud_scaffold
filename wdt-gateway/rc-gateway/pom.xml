@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>rc-gateway</artifactId>
+    <packaging>jar</packaging>
     <description>spring cloud gateway网关</description>
 
     <dependencies>
@@ -31,7 +32,15 @@
         </dependency>
     </dependencies>
 
-    <build>
 
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
+
 </project>

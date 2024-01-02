@@ -11,11 +11,18 @@
     </parent>
 
     <artifactId>rc-common-core</artifactId>
+    <packaging>jar</packaging>
     <description>公共核心</description>
 
-    <properties>
-
-    </properties>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

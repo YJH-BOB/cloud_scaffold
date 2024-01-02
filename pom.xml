@@ -38,7 +38,7 @@
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
-        <spring-boot-dependencies.version>3.1.6</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.2.0</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>

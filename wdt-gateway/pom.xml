@@ -17,9 +17,4 @@
         <module>rc-gateway</module>
     </modules>
 
-    <build>
-
-    </build>
-
-    
 </project>
