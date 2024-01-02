@@ -18,17 +18,17 @@
         <!-- 公共核心包 -->
         <module>wdt-commons</module>
         <!-- 认证 -->
-        <module>wdt-oauth2</module>
+<!--        <module>wdt-oauth2</module>-->
         <!-- 网关 -->
         <module>wdt-gateway</module>
         <!-- 文件上传下载 -->
-        <module>wdt-file</module>
+<!--        <module>wdt-file</module>-->
         <!-- 站内信 -->
-        <module>wdt-websocket</module>
+<!--        <module>wdt-websocket</module>-->
         <!-- 数据同步 -->
-        <module>wdt-datasync</module>
+<!--        <module>wdt-datasync</module>-->
         <!-- 业务 -->
-        <module>wdt-business</module>
+<!--        <module>wdt-business</module>-->
     </modules>
 
     <!-- 统一管理版本版本 -->
