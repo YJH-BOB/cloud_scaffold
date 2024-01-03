@@ -1,6 +1,6 @@
 package com.wdt.gateway.filter;
 
-import com.wdt.common.model.CodeEnum;
+import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.model.Result;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -57,13 +57,12 @@ public class AuthGlobalFilter implements GlobalFilter {
 
 
 
-
         //成功给请求头添加信息
 
 
 
 
-        return null;
+        return chain.filter(exchange);
     }
     private Mono<Void> out(ServerHttpResponse response) {
         Result<Object> result = Result.failed(CodeEnum.INTERIOR.getCode(), CodeEnum.INTERIOR.getMsg());

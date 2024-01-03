@@ -1,4 +1,4 @@
-package com.wdt.common.model;
+package com.wdt.common.enmus;
 
 /**
  * Description:

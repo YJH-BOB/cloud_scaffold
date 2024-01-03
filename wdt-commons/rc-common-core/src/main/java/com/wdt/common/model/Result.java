@@ -1,5 +1,6 @@
 package com.wdt.common.model;
 
+import com.wdt.common.enmus.CodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
