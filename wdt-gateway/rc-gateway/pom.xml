@@ -27,8 +27,13 @@
         </dependency>
         <!--nacos 配置-->
         <dependency>
-        <groupId>com.alibaba.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wdt</groupId>
+            <artifactId>rc-common-core</artifactId>
         </dependency>
     </dependencies>
 

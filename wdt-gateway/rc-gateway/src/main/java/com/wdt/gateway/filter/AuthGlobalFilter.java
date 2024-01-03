@@ -1,6 +1,7 @@
 package com.wdt.gateway.filter;
 
-import com.alibaba.nacos.shaded.com.google.gson.JsonObject;
+import com.wdt.common.model.CodeEnum;
+import com.wdt.common.model.Result;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -19,6 +20,12 @@ import java.util.Set;
  * Date: 2024/1/3
  */
 public class AuthGlobalFilter implements GlobalFilter {
+//    static {
+//        PASS_URL.add("api");
+//    }
+//    static {
+//        NOPASS_URL.add("api");
+//    }
 
     /**
      * 1.接口放行
@@ -46,6 +53,12 @@ public class AuthGlobalFilter implements GlobalFilter {
             // 返回一个响应
           return out(exchange.getResponse());
         }
+        //token 校验
+
+
+
+
+        //成功给请求头添加信息
 
 
 
@@ -53,11 +66,8 @@ public class AuthGlobalFilter implements GlobalFilter {
         return null;
     }
     private Mono<Void> out(ServerHttpResponse response) {
-        JsonObject message = new JsonObject();
-        message.addProperty("success", false);
-//        message.addProperty("code", CodeEnum.INTERIOR.);
-//        message.addProperty("data", "内部接口,访问失败");
-        byte[] bits = message.toString().getBytes(StandardCharsets.UTF_8);
+        Result<Object> result = Result.failed(CodeEnum.INTERIOR.getCode(), CodeEnum.INTERIOR.getMsg());
+        byte[] bits = result.toString().getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = response.bufferFactory().wrap(bits);
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         return response.writeWith(Mono.just(buffer));
