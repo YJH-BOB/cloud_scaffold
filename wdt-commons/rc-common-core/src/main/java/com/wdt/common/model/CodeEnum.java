@@ -7,7 +7,8 @@ package com.wdt.common.model;
  */
 public enum CodeEnum {
     SUCCESS(50001,"请求成功"),
-    ERROR(50002,"请求失败,请联系管理员");
+    ERROR(50002,"请求失败,请联系管理员"),
+    INTERIOR(50003,"内部接口，外部无法访问");
     private Integer code ;
     private String  msg ;
 
