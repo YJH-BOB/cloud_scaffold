@@ -4,6 +4,7 @@ import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.model.Result;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -20,7 +21,7 @@ import java.util.Set;
  * Author: admin
  * Date: 2024/1/3
  */
-public class AuthGlobalFilter implements GlobalFilter {
+public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
@@ -77,5 +78,10 @@ public class AuthGlobalFilter implements GlobalFilter {
         DataBuffer buffer = response.bufferFactory().wrap(bits);
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         return response.writeWith(Mono.just(buffer));
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
     }
 }
