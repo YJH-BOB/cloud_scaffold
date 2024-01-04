@@ -12,22 +12,30 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
  */
 @Configuration
 public class CorsConfig {
-    @Value("${cors.urlWhite}")
+
+    private static final String ORIGIN_PATTERN = "*";
+    @Value("${cors.urlWhite:*}")
     private String urlWhitelist;
 
     @Bean
     public CorsWebFilter corsWebFilter() {
+        if (urlWhitelist.contains(ORIGIN_PATTERN)) {
+            return setCorsWebFilter(new String[]{"*"});
+        }
+        return setCorsWebFilter(urlWhitelist.split(","));
+    }
+
+    private CorsWebFilter setCorsWebFilter(String[] urls) {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        for (String url : urlWhitelist.split(",")) {
+        for (String url : urls) {
             corsConfiguration.addAllowedOriginPattern(url);
         }
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
-
         return new CorsWebFilter(source);
     }
+
 }

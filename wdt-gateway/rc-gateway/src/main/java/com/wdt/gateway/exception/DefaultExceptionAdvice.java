@@ -18,7 +18,7 @@ public class DefaultExceptionAdvice {
 
     @ExceptionHandler(BusinessException.class)
     public Result<Object> handleBusinessException(BusinessException businessException) {
-        return Result.failed(businessException.getMessage(),businessException.getCode());
+        return Result.succeed(businessException.getMessage(),businessException.getCode());
     }
     @ExceptionHandler(Exception.class)
     public Result<Object> handleException(HttpServletRequest request, Exception ex) {
