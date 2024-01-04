@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -20,6 +21,10 @@ import java.util.Set;
  * Date: 2024/1/3
  */
 public class AuthGlobalFilter implements GlobalFilter {
+
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+
+
 //    static {
 //        PASS_URL.add("api");
 //    }
@@ -43,15 +48,17 @@ public class AuthGlobalFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
-        if(PASS_URL.contains(path)){
-            // 创建可变副本，交换请求对象
-            request = exchange.getRequest().mutate().header("plublic", "1").build();
-            exchange.mutate().request(request);
-            return chain.filter(exchange);
+        for (String s : PASS_URL) {
+            if (antPathMatcher.match(s, path)) {
+                request = exchange.getRequest().mutate().header("isPublic", "1").build();
+                exchange = exchange.mutate().request(request).build();
+                return chain.filter(exchange);
+            }
         }
-        if(NOPASS_URL.contains(path)){
-            // 返回一个响应
-          return out(exchange.getResponse());
+        for (String s : NOPASS_URL) {
+            if (antPathMatcher.match(s, path)) {
+                return out(exchange.getResponse());
+            }
         }
         //token 校验
 
