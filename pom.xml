@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <!-- 定义项目基本信息 -->
     <groupId>com.wdt</groupId>
     <artifactId>cloud-scaffold</artifactId>
@@ -18,7 +19,7 @@
         <!-- 公共核心包 -->
         <module>wdt-commons</module>
         <!-- 认证 -->
-<!--        <module>wdt-oauth2</module>-->
+        <module>wdt-oauth2</module>
         <!-- 网关 -->
         <module>wdt-gateway</module>
         <!-- 文件上传下载 -->
