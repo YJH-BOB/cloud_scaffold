@@ -99,9 +99,8 @@ public class JwtUtil {
      *
      * @param jwt
      * @return
-     * @throws Exception
      */
-    public static Claims parseJWT(String jwt) throws Exception {
+    public static Claims parseJWT(String jwt){
         SecretKey secretKey = generalKey();
         return Jwts.parser()
                 .setSigningKey(secretKey)
