@@ -19,7 +19,7 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")
-public class User extends BaseEntity implements Serializable {
+public class SysUser extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 9024944941255982856L;

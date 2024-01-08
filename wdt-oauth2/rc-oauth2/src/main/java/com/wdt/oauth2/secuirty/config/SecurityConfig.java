@@ -1,4 +1,4 @@
-package com.wdt.oauth2.config;
+package com.wdt.oauth2.secuirty.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

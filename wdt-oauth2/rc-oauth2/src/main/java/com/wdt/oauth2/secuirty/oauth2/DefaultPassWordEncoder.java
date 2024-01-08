@@ -1,4 +1,4 @@
-package com.wdt.oauth2.secuirty;
+package com.wdt.oauth2.secuirty.oauth2;
 
 import cn.hutool.crypto.digest.MD5;
 import org.springframework.security.crypto.password.PasswordEncoder;

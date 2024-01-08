@@ -1,4 +1,4 @@
-package com.wdt.oauth2.secuirty;
+package com.wdt.oauth2.secuirty.oauth2;
 
 import cn.hutool.http.HttpStatus;
 import com.wdt.common.model.Result;
