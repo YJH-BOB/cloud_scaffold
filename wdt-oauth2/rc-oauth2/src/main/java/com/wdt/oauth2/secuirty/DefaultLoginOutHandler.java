@@ -3,8 +3,9 @@ package com.wdt.oauth2.secuirty;
 import cn.hutool.http.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wdt.common.model.Result;
-import com.wdt.common.util.JwtUtil;
-import com.wdt.common.util.RedisUtil;
+import com.wdt.common.utils.JwtUtil;
+import com.wdt.common.utils.ResponseUtil;
+import com.wdt.oauth2.utils.RedisUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,15 +34,12 @@ public class DefaultLoginOutHandler implements LogoutHandler {
                 Claims claims = JwtUtil.parseJWT(token);
                 String username = (String) claims.get("username");
                 redisUtil.deleteObject(username);
-                ObjectMapper objectMapper = new ObjectMapper();
-                response.setStatus(HttpStatus.HTTP_UNAUTHORIZED);
+                response.setStatus(HttpStatus.HTTP_OK);
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                response.getWriter().write(objectMapper.writeValueAsString(Result.failed()));
-
+                ResponseUtil.out(response,Result.succeed(200,"登出成功"));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
         });
     }
 }

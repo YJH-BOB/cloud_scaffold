@@ -1,4 +1,4 @@
-package com.wdt.common.util;
+package com.wdt.common.utils;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;

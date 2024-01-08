@@ -1,8 +1,8 @@
 package com.wdt.oauth2.secuirty;
 
 import cn.hutool.http.HttpStatus;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wdt.common.model.Result;
+import com.wdt.common.utils.ResponseUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,9 +20,8 @@ import java.io.IOException;
 public class DefaultUnOauthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        response.setStatus(HttpStatus.HTTP_OK);
+        response.setStatus(HttpStatus.HTTP_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(Result.succeed(401,"未授权，清先登录")));
+        ResponseUtil.out(response,Result.succeed(401,"未授权,清先登录"));
     }
 }

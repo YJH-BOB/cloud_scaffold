@@ -1,4 +1,4 @@
-package com.wdt.common.util;
+package com.wdt.common.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
