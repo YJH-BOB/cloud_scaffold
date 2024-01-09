@@ -1,0 +1,11 @@
+1.先解决烦人的401页面，将未授权 换成我的类 ，使得未授权抛出异常 DefaultUnOauthEntryPoint
+2.密码的处理，前端传来的密码先解密，再加密成数据库格式的密码，让userdetail 和 autn（userandpassandtoken)  对象比对
+3.对于退出登录处理，退出登录清除redis的值，使得jwt过期
+4.授权方面
+     授权成功处理器
+     授权失败处理器
+5.登录从这里进 UsernamePasswordAuthenticationFilter
+6.鉴权走这里  BasicAuthenticationFilter
+7.重写UserDetails
+8.实现查询数据库逻辑
+9配置一下

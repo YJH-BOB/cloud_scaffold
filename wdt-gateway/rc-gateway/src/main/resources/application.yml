@@ -6,9 +6,9 @@ spring:
           lowerCaseServiceId: true
           enabled: true
       routes:
-        - id: oauth2
-          uri: lb://rc-oauth2
+        - id: security
+          uri: lb://rc-security
           predicates:
-            - Path=/api-oauth2/**
+            - Path=/api-security/**
           filters:
             - PreserveHostHeader

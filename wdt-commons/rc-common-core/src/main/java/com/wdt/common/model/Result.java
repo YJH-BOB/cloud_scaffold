@@ -35,6 +35,10 @@ public class Result<T> implements Serializable {
         return Result.of("success", null, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
+    public static Result<Object> succeed(String msg) {
+        return Result.of("success", null, CodeEnum.SUCCESS.getCode(), msg);
+    }
+
     public static <T> Result<T> succeed(T data) {
         return Result.of("success", data, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
