@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 默认的密码处理
  */
-@Component
+
 public class DefaultPassWordEncoder implements PasswordEncoder {
     /**
      *  密码加密

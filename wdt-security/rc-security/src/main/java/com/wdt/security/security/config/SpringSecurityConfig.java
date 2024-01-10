@@ -3,10 +3,10 @@ package com.wdt.security.security.config;
 import com.wdt.security.security.filter.LoginAuthFilter;
 import com.wdt.security.security.filter.LoginFilter;
 import com.wdt.security.security.handler.*;
-import com.wdt.security.security.service.impl.DefaultGrantedAuthorityImpl;
 import com.wdt.security.security.service.impl.DefaultUserDetailsServiceImpl;
 import com.wdt.security.utils.RedisUtil;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -34,37 +34,35 @@ public class SpringSecurityConfig {
 
     @Resource
     private DefaultUnOauthEntryPoint defaultUnOauthEntryPoint;
-
-    @Resource
-    private DefaultLoginOutSuccessHandler defaultLoginOutHandler;
-
     @Resource
     private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
-
     @Resource
     private DefaultAuthenticationFailureHandler defaultAuthenticationFailureHandler;
-
-    @Resource
-    private LoginAuthFilter loginAuthFilter;
-
     @Resource
     private DefaultAccessDeniedHandler defaultAccessDeniedHandler ;
-
     @Resource
-    private LoginFilter loginFilter;
+    private RedisUtil redisUtil ;
+    @Autowired
+    private DefaultLoginOutSuccessHandler defaultLoginOutSuccessHandler ;
+    @Autowired
+    private DefaultUserDetailsServiceImpl defaultUserDetailsService ;
 
-    @Resource
-    private DefaultUserDetailsServiceImpl defaultUserDetailsService;
 
-    @Resource
-    private DefaultGrantedAuthorityImpl defaultGrantedAuthority;
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
-    @Resource
-    private AuthenticationManager authenticationManager;
 
-    @Resource
-    private RedisUtil redisUtil;
+    @Bean
+    public LoginAuthFilter getLoginAuthFilter(AuthenticationManager authenticationManager) {
+        return new LoginAuthFilter(authenticationManager, redisUtil);
+    }
 
+    @Bean
+    public LoginFilter getLoginFilter(AuthenticationManager authenticationManager) throws Exception {
+        return new LoginFilter(authenticationManager, redisUtil);
+    }
 
 
     /**
@@ -93,12 +91,6 @@ public class SpringSecurityConfig {
         return messageSource;
     }
 
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
     /**
      * 设置默认认证提供
      */
@@ -117,7 +109,7 @@ public class SpringSecurityConfig {
      * 安全配置
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable);
@@ -131,12 +123,12 @@ public class SpringSecurityConfig {
                 );
 
         //认证过滤器
-        loginFilter.setFilterProcessesUrl("/security/login");
-        http.addFilterAfter(loginFilter, UsernamePasswordAuthenticationFilter.class);
+        getLoginFilter(authenticationManager).setFilterProcessesUrl("/security/login");
+        http.addFilterAt(getLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
         //把token校验过滤器添加到过滤器链中
         //鉴权过滤器
-        http.addFilterBefore(loginAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(getLoginAuthFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
         // 全局异常处理器  认证异常和鉴权异常
         http.exceptionHandling(ex->ex.authenticationEntryPoint(defaultUnOauthEntryPoint).accessDeniedHandler(defaultAccessDeniedHandler));
@@ -145,15 +137,10 @@ public class SpringSecurityConfig {
         http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
 
         //登出成功处理器
-        http.logout(logout->logout.logoutSuccessHandler(defaultLoginOutHandler));
+        http.logout(logout->logout.logoutSuccessHandler(defaultLoginOutSuccessHandler));
 
 
         return http.build();
     }
-
-
-
-
-
 
 }

@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * 授权过滤器
  */
-@Component
+
 public class LoginAuthFilter extends BasicAuthenticationFilter {
     private static final String TOKEN = "token" ;
 

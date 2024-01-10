@@ -1,5 +1,5 @@
 -- 创建服务为rc-oauth2的数据库
-CREATE DATABASE IF NOT EXISTS rc_oath2 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS rc_security DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 -- 创建sys_user表
 CREATE TABLE IF NOT EXISTS  `sys_user` (
                             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',

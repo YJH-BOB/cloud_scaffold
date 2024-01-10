@@ -19,7 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,19 +29,20 @@ import java.util.Optional;
 /**
  * 登录入口
  */
-@Component
+
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private static final String usernameParameter = "username";
     private static final String passwordParameter = "password";
 
-    private final AuthenticationManager authenticationManager;
     private final RedisUtil redisUtil ;
 
-    public LoginFilter(AuthenticationManager authenticationManager,RedisUtil redisUtil) {
-        this.authenticationManager = authenticationManager;
-        this.redisUtil=redisUtil ;
+    public LoginFilter(AuthenticationManager authenticationManager,
+                       RedisUtil redisUtil) throws Exception {
+        super(authenticationManager);
+        this.redisUtil = redisUtil;
     }
+
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +51,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String passWord = Optional.ofNullable(request.getParameter(passwordParameter)).orElseThrow(() -> new BusinessException(CodeEnum.DATA_NOT_FOUND));
         // @TODO 前端密码解密
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userName, passWord, List.of());
-        return authenticationManager.authenticate(authRequest);
+        return this.getAuthenticationManager().authenticate(authRequest);
     }
 
     @Override
@@ -85,4 +85,5 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String message = JSONUtil.toJsonStr(Result.succeed(200, CodeEnum.USER_NOT_FOUND.getMsg()));
         response.getWriter().write(message);
     }
+
 }
