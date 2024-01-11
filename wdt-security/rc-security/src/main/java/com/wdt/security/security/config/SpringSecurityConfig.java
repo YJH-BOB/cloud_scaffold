@@ -123,10 +123,10 @@ public class SpringSecurityConfig {
         // /security/login 无需认证 ，其余都需要认证
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api-security/security/login").permitAll()
+                        .requestMatchers("/api-security/login").permitAll()
                         .anyRequest().authenticated()
                 );
-        http.formLogin(form->form.loginProcessingUrl("/api-security/security/login"));
+        http.formLogin(form->form.loginProcessingUrl("/api-security/login"));
         //认证过滤器
         http.addFilterAt(getLoginFilter(), UsernamePasswordAuthenticationFilter.class);
         //把token校验过滤器添加到过滤器链中
@@ -138,7 +138,7 @@ public class SpringSecurityConfig {
         http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
         //登出成功处理器
         http.logout(logout->logout.logoutSuccessHandler(defaultLoginOutSuccessHandler));
-        http.logout(from->from.logoutUrl("/api-security/security/logout"));
+        http.logout(from->from.logoutUrl("/api-security/logout"));
         return http.build();
     }
 

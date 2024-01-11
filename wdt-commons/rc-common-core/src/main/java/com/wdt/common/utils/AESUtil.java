@@ -1,11 +1,13 @@
 package com.wdt.common.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-
+@Slf4j
 public class AESUtil {
     private static final String AES_ALGORITHM = "AES";
     private static final String AES_TRANSFORMATION_CBC = "AES/CBC/PKCS5Padding";
@@ -35,5 +37,10 @@ public class AESUtil {
         Cipher cipher = Cipher.getInstance(AES_TRANSFORMATION_CBC);
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(iv));
         return cipher.doFinal(encryptedData);
+    }
+    public static void main(String args[]) throws Exception {
+        String encrypt = encrypt("123");
+        System.out.println(encrypt);
+        log.info("11111"+ encrypt);
     }
 }
