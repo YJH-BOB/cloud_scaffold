@@ -3,6 +3,7 @@ package com.wdt.security.security.handler;
 import cn.hutool.http.HttpStatus;
 import com.alibaba.fastjson.JSON;
 import com.wdt.common.model.Result;
+import com.wdt.common.utils.ResponseUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,7 +20,6 @@ public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthentication
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(HttpStatus.HTTP_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        String message = JSON.toJSONString(Result.failed("认证失败"));
-        response.getWriter().write(message);
+        ResponseUtil.out(response,Result.succeed(401, "认证失败"));
     }
 }

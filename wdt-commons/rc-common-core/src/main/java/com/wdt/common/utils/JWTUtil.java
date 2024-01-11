@@ -43,7 +43,8 @@ public class JWTUtil {
         String username = "";
         try {
             Claims claims = getClaimsFromToken(token);
-            username = claims.getSubject();
+            username = claims.get("subject").toString() ;
+//            username = claims.getSubject();
         } catch (Exception e) {
             username = null;
             log.info("error:{}", "Failed to get username from token");

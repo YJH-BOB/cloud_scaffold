@@ -10,6 +10,7 @@ import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
 import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.model.Result;
+import com.wdt.common.utils.ResponseUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +30,6 @@ public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setStatus(HttpStatus.HTTP_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        String message = JSONUtil.toJsonStr(Result.failed(401, CodeEnum.UNAUTHORIZE.getMsg()));
-        response.getWriter().write(message);
+        ResponseUtil.out(response,Result.failed(401, CodeEnum.UNAUTHORIZE.getMsg()));
     }
 }

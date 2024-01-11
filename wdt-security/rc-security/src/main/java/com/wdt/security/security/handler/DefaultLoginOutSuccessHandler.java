@@ -6,6 +6,7 @@ import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.exception.BusinessException;
 import com.wdt.common.model.Result;
 import com.wdt.common.utils.JWTUtil;
+import com.wdt.common.utils.ResponseUtil;
 import com.wdt.security.utils.RedisUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,8 +39,7 @@ public class DefaultLoginOutSuccessHandler implements LogoutSuccessHandler {
                 redisUtil.deleteObject(username);
                 response.setStatus(HttpStatus.HTTP_OK);
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                String message = JSONUtil.toJsonStr(Result.succeed(200, CodeEnum.LOGIN_OUT.getMsg()));
-                response.getWriter().write(message);
+                ResponseUtil.out(response,Result.succeed(200, CodeEnum.LOGIN_OUT.getMsg()));
             } catch (Exception e) {
                 throw new BusinessException(CodeEnum.TOKEN_NOT_FOUND);
             }

@@ -6,6 +6,7 @@ import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.exception.BusinessException;
 import com.wdt.common.model.Result;
 import com.wdt.common.utils.JWTUtil;
+import com.wdt.common.utils.ResponseUtil;
 import com.wdt.security.module.user.entity.SysUser;
 import com.wdt.security.security.entity.DefaultUser;
 import com.wdt.security.utils.RedisUtil;
@@ -71,8 +72,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         redisUtil.setCacheObject(userName, userMap);
         response.setStatus(HttpStatus.HTTP_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        String message = JSONUtil.toJsonStr(Result.succeed(200,CodeEnum.LOGIN_IN.getMsg()));
-        response.getWriter().write(message);
+        ResponseUtil.out(response, Result.succeed(userMap,200,CodeEnum.LOGIN_IN.getMsg()));
     }
 
     @Override
@@ -82,8 +82,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             throws IOException, ServletException {
         response.setStatus(HttpStatus.HTTP_BAD_REQUEST);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        String message = JSONUtil.toJsonStr(Result.succeed(200, CodeEnum.USER_NOT_FOUND.getMsg()));
-        response.getWriter().write(message);
+        ResponseUtil.out(response, Result.succeed(200, CodeEnum.USER_NOT_FOUND.getMsg()));
     }
 
 }
