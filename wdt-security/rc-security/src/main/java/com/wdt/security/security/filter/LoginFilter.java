@@ -38,7 +38,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final RedisUtil redisUtil ;
 
     public LoginFilter(AuthenticationManager authenticationManager,
-                       RedisUtil redisUtil) throws Exception {
+                       RedisUtil redisUtil){
         super(authenticationManager);
         this.redisUtil = redisUtil;
     }

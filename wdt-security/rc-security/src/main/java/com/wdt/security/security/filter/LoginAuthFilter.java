@@ -16,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -38,9 +39,12 @@ public class LoginAuthFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = request.getHeader(TOKEN);
-        Optional.ofNullable(token).orElseThrow(()->new BusinessException(CodeEnum.UNAUTHORIZE));
-
-
+        //获取token
+        if (!StringUtils.hasText(token)) {
+            //放行
+            chain.doFilter(request, response);
+            return;
+        }
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);

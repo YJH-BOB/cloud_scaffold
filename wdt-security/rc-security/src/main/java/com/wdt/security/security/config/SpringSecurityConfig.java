@@ -9,10 +9,10 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -29,6 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig {
 
 
@@ -42,26 +43,31 @@ public class SpringSecurityConfig {
     private DefaultAccessDeniedHandler defaultAccessDeniedHandler ;
     @Resource
     private RedisUtil redisUtil ;
-    @Autowired
+    @Resource
     private DefaultLoginOutSuccessHandler defaultLoginOutSuccessHandler ;
-    @Autowired
+    @Resource
     private DefaultUserDetailsServiceImpl defaultUserDetailsService ;
+    @Resource
+    private AuthenticationConfiguration authenticationConfiguration ;
 
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager()  {
+        try {
+            return authenticationConfiguration.getAuthenticationManager();
+        }catch (Exception e){
+            return null ;
+        }
     }
 
-
     @Bean
-    public LoginAuthFilter getLoginAuthFilter(AuthenticationManager authenticationManager) {
-        return new LoginAuthFilter(authenticationManager, redisUtil);
+    public LoginAuthFilter getLoginAuthFilter() {
+        return new LoginAuthFilter(authenticationManager(), redisUtil);
     }
 
     @Bean
-    public LoginFilter getLoginFilter(AuthenticationManager authenticationManager) throws Exception {
-        return new LoginFilter(authenticationManager, redisUtil);
+    public LoginFilter getLoginFilter() {
+        return new LoginFilter(authenticationManager(),redisUtil);
     }
 
 
@@ -80,16 +86,15 @@ public class SpringSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new DefaultPassWordEncoder();
     }
-
-    /**
-     * 设置中文配置
-     */
-    @Bean
-    public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:org/springframework/security/messages_zh_CN");
-        return messageSource;
-    }
+//    /**
+//     * 设置中文配置
+//     */
+//    @Bean
+//    public ReloadableResourceBundleMessageSource messageSource() {
+//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+//        messageSource.setBasename("classpath:org/springframework/security/messages_zh_CN");
+//        return messageSource;
+//    }
 
     /**
      * 设置默认认证提供
@@ -109,7 +114,7 @@ public class SpringSecurityConfig {
      * 安全配置
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable);
@@ -118,28 +123,22 @@ public class SpringSecurityConfig {
         // /security/login 无需认证 ，其余都需要认证
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/security/login").permitAll()
+                        .requestMatchers("/api-security/security/login").permitAll()
                         .anyRequest().authenticated()
                 );
-
+        http.formLogin(form->form.loginProcessingUrl("/api-security/security/login"));
         //认证过滤器
-        getLoginFilter(authenticationManager).setFilterProcessesUrl("/security/login");
-        http.addFilterAt(getLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
-
+        http.addFilterAt(getLoginFilter(), UsernamePasswordAuthenticationFilter.class);
         //把token校验过滤器添加到过滤器链中
         //鉴权过滤器
-        http.addFilterBefore(getLoginAuthFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
-
+        http.addFilterBefore(getLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class);
         // 全局异常处理器  认证异常和鉴权异常
         http.exceptionHandling(ex->ex.authenticationEntryPoint(defaultUnOauthEntryPoint).accessDeniedHandler(defaultAccessDeniedHandler));
-
         // 鉴权成功 和 鉴权 失败处理器
         http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
-
         //登出成功处理器
         http.logout(logout->logout.logoutSuccessHandler(defaultLoginOutSuccessHandler));
-
-
+        http.logout(from->from.logoutUrl("/api-security/security/logout"));
         return http.build();
     }
 
