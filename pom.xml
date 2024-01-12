@@ -19,7 +19,7 @@
         <!-- 公共核心包 -->
         <module>wdt-commons</module>
         <!-- 认证 -->
-        <module>wdt-security</module>
+        <module>wdt-service</module>
         <!-- 网关 -->
         <module>wdt-gateway</module>
         <!-- 文件上传下载 -->
@@ -145,6 +145,11 @@
             <dependency>
                 <groupId>com.wdt</groupId>
                 <artifactId>rc-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wdt</groupId>
+                <artifactId>rc-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

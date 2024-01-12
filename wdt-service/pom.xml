@@ -10,14 +10,13 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>wdt-commons</artifactId>
+    <artifactId>wdt-service</artifactId>
     <packaging>pom</packaging>
-    <description>公共核心包</description>
-
+    <description>业务</description>
     <modules>
-        <module>rc-common-core</module>
-        <module>rc-security</module>
+        <module>rc-system</module>
     </modules>
+
 
 
 

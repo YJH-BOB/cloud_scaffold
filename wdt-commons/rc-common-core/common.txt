@@ -1,6 +1,0 @@
-common-core:
-目前实现：
-1.统一的结果对象
-2.统一的异常对象
-3.redis ，mybatis ，mybatisplus , mq 等等统一配置
-4.统一的日志输出
