@@ -1,6 +1,7 @@
 package com.wdt.security.filter;
 
 import cn.hutool.http.HttpStatus;
+import com.alibaba.fastjson.JSONObject;
 import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.exception.BusinessException;
 import com.wdt.common.model.Result;
@@ -61,9 +62,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication auth) throws IOException, ServletException {
 
         DefaultUser defaultUser = (DefaultUser)auth.getPrincipal();
-        SysUser userInfo = defaultUser.getUserInfo();
-        String userName = userInfo.getUserName();
-        String token = JWTUtil.createToken(userInfo.getUserName());
+        JSONObject userInfo = defaultUser.getUserInfo();
+        String userName = userInfo.getString("userName");
+        String token = JWTUtil.createToken(userInfo.getString("passWord"));
         redisUtil.setCacheObject(userName, token);
         Map<String,Object> userMap = new HashMap<>();
         userMap.put("token", token);

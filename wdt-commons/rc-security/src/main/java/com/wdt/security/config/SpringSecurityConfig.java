@@ -1,13 +1,14 @@
 package com.wdt.security.config;
 
-import com.wdt.security.filter.LoginAuthFilter;
 import com.wdt.security.filter.LoginFilter;
 import com.wdt.security.handler.*;
 import com.wdt.security.service.impl.DefaultUserDetailsServiceImpl;
 import com.wdt.security.utils.RedisUtil;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,12 +32,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SpringSecurityConfig {
 
 
-    @Resource
-    private DefaultUnOauthEntryPoint defaultUnOauthEntryPoint;
-    @Resource
-    private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
-    @Resource
-    private DefaultAuthenticationFailureHandler defaultAuthenticationFailureHandler;
+//    @Resource
+//    private DefaultUnOauthEntryPoint defaultUnOauthEntryPoint;
+//    @Resource
+//    private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
+//    @Resource
+//    private DefaultAuthenticationFailureHandler defaultAuthenticationFailureHandler;
     @Resource
     private DefaultAccessDeniedHandler defaultAccessDeniedHandler ;
     @Resource
@@ -47,7 +49,6 @@ public class SpringSecurityConfig {
     @Resource
     private AuthenticationConfiguration authenticationConfiguration ;
 
-
     @Bean
     public AuthenticationManager authenticationManager()  {
         try {
@@ -57,10 +58,10 @@ public class SpringSecurityConfig {
         }
     }
 
-    @Bean
-    public LoginAuthFilter getLoginAuthFilter() {
-        return new LoginAuthFilter(authenticationManager(), redisUtil);
-    }
+//    @Bean
+//    public LoginAuthFilter getLoginAuthFilter() {
+//        return new LoginAuthFilter(authenticationManager(), redisUtil);
+//    }
 
     @Bean
     public LoginFilter getLoginFilter() {
@@ -83,15 +84,6 @@ public class SpringSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new DefaultPassWordEncoder();
     }
-//    /**
-//     * 设置中文配置
-//     */
-//    @Bean
-//    public ReloadableResourceBundleMessageSource messageSource() {
-//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-//        messageSource.setBasename("classpath:org/springframework/security/messages_zh_CN");
-//        return messageSource;
-//    }
 
     /**
      * 设置默认认证提供
@@ -128,11 +120,11 @@ public class SpringSecurityConfig {
         http.addFilterAt(getLoginFilter(), UsernamePasswordAuthenticationFilter.class);
         //把token校验过滤器添加到过滤器链中
         //鉴权过滤器
-        http.addFilterBefore(getLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(getLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class);
         // 全局异常处理器  认证异常和鉴权异常
-        http.exceptionHandling(ex->ex.authenticationEntryPoint(defaultUnOauthEntryPoint).accessDeniedHandler(defaultAccessDeniedHandler));
-        // 鉴权成功 和 鉴权 失败处理器
-        http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
+//        http.exceptionHandling(ex->ex.authenticationEntryPoint(defaultUnOauthEntryPoint).accessDeniedHandler(defaultAccessDeniedHandler));
+//        // 鉴权成功 和 鉴权 失败处理器
+//        http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
         //登出成功处理器
         http.logout(logout->logout.logoutSuccessHandler(defaultLoginOutSuccessHandler));
         http.logout(from->from.logoutUrl("/api-security/logout"));
