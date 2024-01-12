@@ -1,6 +1,6 @@
-package com.wdt.security.entity;
+package com.wdt.system.module.user.entity;
 
-import com.wdt.security.module.user.entity.SysUser;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

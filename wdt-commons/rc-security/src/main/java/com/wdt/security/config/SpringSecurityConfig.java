@@ -3,7 +3,6 @@ package com.wdt.security.config;
 import com.wdt.security.filter.LoginAuthFilter;
 import com.wdt.security.filter.LoginFilter;
 import com.wdt.security.handler.*;
-import com.wdt.security.security.handler.*;
 import com.wdt.security.service.impl.DefaultUserDetailsServiceImpl;
 import com.wdt.security.utils.RedisUtil;
 import jakarta.annotation.Resource;

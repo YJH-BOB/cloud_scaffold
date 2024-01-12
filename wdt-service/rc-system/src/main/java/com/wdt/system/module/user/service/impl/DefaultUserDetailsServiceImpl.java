@@ -1,12 +1,13 @@
-package com.wdt.security.service.impl;
+package com.wdt.system.module.user.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.exception.BusinessException;
 import com.wdt.security.enmus.AccountStatus;
-import com.wdt.security.entity.DefaultUser;
-import com.wdt.security.module.user.entity.SysUser;
-import com.wdt.security.module.user.mapper.SysUserMapper;
+import com.wdt.security.service.impl.DefaultGrantedAuthorityImpl;
+import com.wdt.system.module.user.entity.DefaultUser;
+import com.wdt.system.module.user.entity.SysUser;
+import com.wdt.system.module.user.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class DefaultUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
