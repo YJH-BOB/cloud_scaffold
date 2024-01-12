@@ -8,7 +8,6 @@ import com.wdt.common.model.Result;
 import com.wdt.common.utils.JWTUtil;
 import com.wdt.common.utils.ResponseUtil;
 import com.wdt.security.entity.DefaultUser;
-import com.wdt.security.entity.SysUser;
 import com.wdt.security.utils.RedisUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

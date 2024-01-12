@@ -6,14 +6,15 @@ import com.wdt.common.enmus.CodeEnum;
 import com.wdt.common.exception.BusinessException;
 import com.wdt.security.enmus.AccountStatus;
 import com.wdt.security.entity.DefaultUser;
-import com.wdt.security.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
