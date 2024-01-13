@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient //打开服务发现
 @SpringBootApplication
-@MapperScan(basePackages={"com.wdt.security.module.*.mapper"})
+@MapperScan(basePackages={"com.wdt.system.module.*.mapper"})
 public class RCServiceSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(RCServiceSystemApplication.class, args);
