@@ -9,3 +9,23 @@
 7.重写UserDetails
 8.实现查询数据库逻辑
 9配置一下
+
+
+
+HandlerInterceptor 和 ClientHttpRequestInterceptor 是两个不同的接口，用于不同的拦截场景。
+
+HandlerInterceptor：
+
+位于 Spring MVC 框架中的 org.springframework.web.servlet 包下。
+用于拦截和处理 Web 请求，在请求到达控制器之前、控制器处理之后、视图渲染之前等不同阶段执行相应的逻辑。
+可以在 Spring MVC 中使用 HandlerInterceptor 接口来定义和配置拦截器。通过实现该接口，可以在请求处理前后执行自定义的逻辑，例如身份验证、日志记录、异常处理等。
+ClientHttpRequestInterceptor：
+
+位于 Spring 框架的 org.springframework.http.client 包下。
+用于拦截和处理客户端发起的 HTTP 请求，在请求发送之前或之后执行相应的逻辑。
+主要用于 Spring 提供的 RestTemplate 或 WebClient 客户端发送 HTTP 请求时的拦截操作。通过实现该接口，可以对请求进行修改、添加请求头、记录日志等操作。
+虽然这两个接口都是用于拦截和处理请求，但它们的使用场景不同，关系如下：
+
+HandlerInterceptor 主要在服务器端（如 Spring MVC）用于拦截和处理 Web 请求。
+ClientHttpRequestInterceptor 主要在客户端（如使用 RestTemplate 或 WebClient 发送请求）用于拦截和处理 HTTP 请求。
+可以说，HandlerInterceptor 是在服务端处理请求的过程中的拦截器，而 ClientHttpRequestInterceptor 是在客户端发送请求的过程中的拦截器。

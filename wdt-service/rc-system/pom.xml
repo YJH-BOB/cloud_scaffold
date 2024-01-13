@@ -16,12 +16,6 @@
 
 
     <dependencies>
-        <!-- SpringSecurity起步依赖 -->
-        <dependency>
-            <groupId>com.wdt</groupId>
-            <artifactId>rc-security</artifactId>
-        </dependency>
-
         <!-- SpringCloud起步依赖 -->
         <!--nacos 服务注册与发现-->
         <dependency>

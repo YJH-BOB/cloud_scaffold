@@ -1,6 +1,6 @@
 spring:
   application:
-    name: rc-system
+    name: rc-security
   profiles:
     active: dev
   cloud:

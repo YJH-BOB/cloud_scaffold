@@ -34,4 +34,8 @@ public class BusinessException extends RuntimeException{
     public Integer getCode() {
         return code;
     }
+
+    public BusinessException(String message,Throwable throwable) {
+        super(message,throwable);
+    }
 }
