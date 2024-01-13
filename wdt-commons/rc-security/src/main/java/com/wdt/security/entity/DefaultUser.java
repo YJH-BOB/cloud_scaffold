@@ -2,7 +2,6 @@ package com.wdt.security.entity;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.wdt.common.model.SysUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

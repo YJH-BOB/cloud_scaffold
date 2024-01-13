@@ -122,7 +122,7 @@ public class SpringSecurityConfig {
         //鉴权过滤器
 //        http.addFilterBefore(getLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class);
         // 全局异常处理器  认证异常和鉴权异常
-//        http.exceptionHandling(ex->ex.authenticationEntryPoint(defaultUnOauthEntryPoint).accessDeniedHandler(defaultAccessDeniedHandler));
+        http.exceptionHandling(ex->ex.accessDeniedHandler(defaultAccessDeniedHandler));
 //        // 鉴权成功 和 鉴权 失败处理器
 //        http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
         //登出成功处理器
