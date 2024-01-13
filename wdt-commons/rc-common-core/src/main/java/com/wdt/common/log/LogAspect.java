@@ -1,7 +1,6 @@
 package com.wdt.common.log;
 
-import com.alibaba.fastjson.JSONObject;
-import com.wdt.common.model.SysUser;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * Description:
@@ -35,14 +31,14 @@ public class LogAspect {
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert attributes != null;
-        Long userId = getUserIdFromRequest(attributes);
+
 
         HttpServletRequest request =  attributes.getRequest();
         // 前置通知：记录请求相关信息
-        log.info("url={}, method={}, ip={}, class_method={}, args={}, userId={}",
+        log.info("url={}, method={}, ip={}, class_method={}, args={}",
                 request.getRequestURI(), request.getMethod(), request.getRemoteAddr(),
                 joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(),
-                joinPoint.getArgs(), userId);
+                joinPoint.getArgs());
 
         Object result;
         try {
@@ -69,19 +65,6 @@ public class LogAspect {
         return result;
     }
 
-    private Long getUserIdFromRequest(ServletRequestAttributes attributes) {
-        HttpServletRequest request = attributes.getRequest();
-        String user = request.getHeader("user");
-        return Optional.ofNullable(user)
-                .map(this::decodeUser)
-                .map(SysUser::getId)
-                .orElse(null);
-    }
-
-    private SysUser decodeUser(String userStr) {
-        userStr = URLDecoder.decode(userStr, StandardCharsets.UTF_8);
-        return JSONObject.parseObject(userStr, SysUser.class);
-    }
 
 
 

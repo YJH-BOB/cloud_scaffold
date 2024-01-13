@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rolePermissionRel")
-public class RolePermissionRelController {
+public class SysRolePermissionRelController {
     @Autowired
     private SysRolePermissionRelService sysRolePermissionRelService;
 }

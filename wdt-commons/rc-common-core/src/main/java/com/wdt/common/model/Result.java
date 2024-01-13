@@ -1,8 +1,10 @@
 package com.wdt.common.model;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wdt.common.enmus.CodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serial;
@@ -14,10 +16,11 @@ import java.io.Serializable;
  *
  * @author admin
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Result<T> implements Serializable {
+public class Result<T> extends JSONObject implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
