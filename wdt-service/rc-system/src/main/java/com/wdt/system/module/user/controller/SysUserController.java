@@ -1,5 +1,7 @@
 package com.wdt.system.module.user.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wdt.common.log.Log;
 import com.wdt.common.model.Result;
 import com.wdt.system.module.user.entity.SysUser;
@@ -21,10 +23,10 @@ public class SysUserController {
         return "Hello";
     }
 
-    @Log("根据用户名查询用户")
+    @Log("根据用户名查询用户-远程调用接口")
     @PostMapping ("findByUserName")
-    public Result<SysUser> findByUserName(@RequestParam(value = "userName") String userName) {
-        return Result.succeed (userService.findByUserName(userName));
+    public JSONObject findByUserName(@RequestParam(value = "userName") String userName) {
+        return (JSONObject)JSONObject.toJSON(userService.findByUserName(userName));
     }
 
 
