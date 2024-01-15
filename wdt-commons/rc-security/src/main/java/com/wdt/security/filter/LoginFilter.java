@@ -18,19 +18,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 登录入口
  */
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+
+
+    private static final String ROLE = "role:" ;
 
     private static final String usernameParameter = "username";
     private static final String passwordParameter = "password";
@@ -63,7 +64,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         DefaultUser defaultUser = (DefaultUser)auth.getPrincipal();
         JSONObject userInfo = defaultUser.getUserInfo();
         String userName = userInfo.getString("userName");
-        String token = JWTUtil.createToken(userInfo.getString("passWord"));
+        String token = JWTUtil.createToken(userInfo.getString("userName"));
         redisUtil.setCacheObject(userName, token);
         Map<String,Object> userMap = new HashMap<>();
         userMap.put("token", token);
@@ -71,6 +72,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         redisUtil.setCacheObject(userName, userMap);
         response.setStatus(HttpStatus.HTTP_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        Collection<? extends GrantedAuthority> authorities = defaultUser.getAuthorities();
+        redisUtil.setCacheObject(ROLE+userName, authorities);
         ResponseUtil.out(response, Result.succeed(userMap,200,CodeEnum.LOGIN_IN.getMsg()));
     }
 
