@@ -2,7 +2,7 @@ package com.wdt.system.module.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.wdt.common.model.BaseEntity;
+import com.wdt.system.entity.BaseEntity;
 import lombok.*;
 
 import java.io.Serial;

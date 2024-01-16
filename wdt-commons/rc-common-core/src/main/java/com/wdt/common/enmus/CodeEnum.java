@@ -27,11 +27,15 @@ public enum CodeEnum {
 
     LOGIN_OUT(16001, "登出成功"),
 
-    LOGIN_IN(16001, "登录成功"),
+    LOGIN_IN(16002, "登录成功"),
+
+    TOKEN_MISSION(16003,"token不存在"),
 
     //======================= 权限相关 code范围为 18000-20000=========================================
 
-    UNAUTHORIZE(18001, "未授权禁止访问");
+    UNAUTHORIZE(18001, "未授权禁止访问"),
+
+    TOKEN_INVALID(18002,"token失效");
 
     public Integer code;
     public String msg;

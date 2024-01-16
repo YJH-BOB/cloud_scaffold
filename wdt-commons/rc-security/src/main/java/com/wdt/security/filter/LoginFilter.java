@@ -74,6 +74,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         Collection<? extends GrantedAuthority> authorities = defaultUser.getAuthorities();
         redisUtil.setCacheObject(ROLE+userName, authorities);
+        Result<Map<String, Object>> succeed = Result.succeed(userMap, 200, CodeEnum.LOGIN_IN.getMsg());
         ResponseUtil.out(response, Result.succeed(userMap,200,CodeEnum.LOGIN_IN.getMsg()));
     }
 

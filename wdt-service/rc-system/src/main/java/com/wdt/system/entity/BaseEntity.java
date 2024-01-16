@@ -1,4 +1,4 @@
-package com.wdt.common.model;
+package com.wdt.system.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

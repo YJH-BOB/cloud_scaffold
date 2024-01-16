@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.wdt.common.model.BaseEntity;
+import com.wdt.system.entity.BaseEntity;
 import lombok.*;
 
 import java.io.Serial;

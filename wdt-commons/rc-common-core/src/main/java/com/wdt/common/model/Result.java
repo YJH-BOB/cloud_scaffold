@@ -16,11 +16,10 @@ import java.io.Serializable;
  *
  * @author admin
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Result<T> extends JSONObject implements Serializable {
+public class Result<T> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

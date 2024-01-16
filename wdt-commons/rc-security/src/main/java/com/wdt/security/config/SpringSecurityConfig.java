@@ -31,13 +31,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
-
-//    @Resource
-//    private DefaultUnOauthEntryPoint defaultUnOauthEntryPoint;
-//    @Resource
-//    private DefaultAuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
-//    @Resource
-//    private DefaultAuthenticationFailureHandler defaultAuthenticationFailureHandler;
     @Resource
     private DefaultAccessDeniedHandler defaultAccessDeniedHandler ;
     @Resource
@@ -57,11 +50,6 @@ public class SpringSecurityConfig {
             return null ;
         }
     }
-
-//    @Bean
-//    public LoginAuthFilter getLoginAuthFilter() {
-//        return new LoginAuthFilter(authenticationManager(), redisUtil);
-//    }
 
     @Bean
     public LoginFilter getLoginFilter() {
@@ -99,33 +87,20 @@ public class SpringSecurityConfig {
     /**
      * 安全配置
      */
-    /**
-     * 安全配置
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable);
-        //不通过Session获取SecurityContext
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        // /security/login 无需认证 ，其余都需要认证
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api-security/login").permitAll()
                         .anyRequest().authenticated()
                 );
         http.formLogin(form->form.loginProcessingUrl("/api-security/login"));
-        //认证过滤器
         http.addFilterAt(getLoginFilter(), UsernamePasswordAuthenticationFilter.class);
-        //把token校验过滤器添加到过滤器链中
-        //鉴权过滤器
-//        http.addFilterBefore(getLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class);
-        // 全局异常处理器  认证异常和鉴权异常
         http.exceptionHandling(ex->ex.accessDeniedHandler(defaultAccessDeniedHandler));
-//        // 鉴权成功 和 鉴权 失败处理器
-//        http.formLogin(form->form.successHandler(defaultAuthenticationSuccessHandler).failureHandler(defaultAuthenticationFailureHandler));
-        //登出成功处理器
         http.logout(logout->logout.logoutSuccessHandler(defaultLoginOutSuccessHandler));
         http.logout(from->from.logoutUrl("/api-security/logout"));
         return http.build();

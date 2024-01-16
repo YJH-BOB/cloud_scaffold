@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
-@FeignClient(name = "rc-system",fallback = RcSystemServiceClientImpl.class,fallbackFactory = GenericFallbackFactory.class,configuration = FeignClientConfiguration.class)
+@FeignClient(name = "rc-system/api-system",fallback = RcSystemServiceClientImpl.class,fallbackFactory = GenericFallbackFactory.class,configuration = FeignClientConfiguration.class)
 public interface RcSystemServiceClient {
     // 根据用户名查询用户
 

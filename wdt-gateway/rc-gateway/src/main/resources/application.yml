@@ -12,3 +12,9 @@ spring:
             - Path=/api-security/**
           filters:
             - PreserveHostHeader
+        - id: system
+          uri: lb://rc-system
+          predicates:
+            - Path=/api-system/**
+          filters:
+            - PreserveHostHeader

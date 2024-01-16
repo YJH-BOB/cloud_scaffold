@@ -1,6 +1,6 @@
 package com.wdt.system.module.role.entity;
 
-import com.wdt.common.model.BaseEntity;
+import com.wdt.system.entity.BaseEntity;
 import lombok.Data;
 
 import java.io.Serial;

@@ -33,7 +33,7 @@ public class DefaultUser implements UserDetails , Serializable {
 
     @Override
     public String getPassword() {
-        return sysuser.getString("passWord");
+        return sysuser.getString("password");
     }
 
     @Override

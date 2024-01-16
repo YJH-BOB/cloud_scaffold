@@ -116,7 +116,7 @@ public class JWTUtil {
      * @param token token字符串
      * @return 是否失效
      */
-    private static boolean isTokenExpired(String token) {
+    public static boolean isTokenExpired(String token) {
         Date expiredDate = getExpiredDateFeomToken(token);
         return expiredDate.before(new Date());
     }

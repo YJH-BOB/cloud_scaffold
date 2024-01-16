@@ -215,12 +215,12 @@
                 <artifactId>jaxb-impl</artifactId>
                 <version>${jaxb-bind.version}</version>
             </dependency>
-            <!-- 正常来说，作为 一个starter ，应该是有对应依赖版本的，不知道 boot3 为什么没有 ，于是添加-->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-security</artifactId>
-                <version>${security.version}</version>
-            </dependency>
+<!--            &lt;!&ndash; 正常来说，作为 一个starter ，应该是有对应依赖版本的，不知道 boot3 为什么没有 ，于是添加&ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.cloud</groupId>-->
+<!--                <artifactId>spring-cloud-starter-security</artifactId>-->
+<!--                <version>${security.version}</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
