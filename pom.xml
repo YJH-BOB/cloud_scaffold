@@ -23,7 +23,7 @@
         <!-- 网关 -->
         <module>wdt-gateway</module>
         <!-- 文件上传下载 -->
-<!--        <module>wdt-file</module>-->
+        <module>wdt-file</module>
         <!-- 站内信 -->
 <!--        <module>wdt-websocket</module>-->
         <!-- 数据同步 -->
