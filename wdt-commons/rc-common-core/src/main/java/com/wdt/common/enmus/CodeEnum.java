@@ -35,7 +35,18 @@ public enum CodeEnum {
 
     UNAUTHORIZE(18001, "未授权禁止访问"),
 
-    TOKEN_INVALID(18002,"token失效");
+    TOKEN_INVALID(18002,"token失效"),
+
+
+    //======================= minio相关 code范围为 20001-22000=========================================
+    DOWNLOAD_FIFE_ERR(20006,"文件下载失败"),
+    UPLOAD_FIFE_ERR(20006,"文件上传失败"),
+    GET_OBJECT_ERR(20005,"获取文件对象失败"),
+
+    LIST_BUCKET_ERR(20004,"获取所有桶失败"),
+    REMOVE_BUCKET_ERR(20003, "删除桶存在失败"),
+    BUCKET_EXISTS_ERR(20002, "查询桶存在失败"),
+    MAKE_BUCKET_ERR(20001, "创建桶失败");
 
     public Integer code;
     public String msg;

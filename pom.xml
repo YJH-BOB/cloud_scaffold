@@ -59,6 +59,7 @@
         <jaxb-core.version>2.3.0.1</jaxb-core.version>
         <security.version>2.2.5.RELEASE</security.version>
         <minio.version>8.5.7</minio.version>
+        <commonsio.version>2.15.0</commonsio.version>
     </properties>
 
 
@@ -98,6 +99,11 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commonsio.version}</version>
         </dependency>
     </dependencies>
 
@@ -217,9 +223,9 @@
                 <version>${jaxb-bind.version}</version>
             </dependency>
             <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>${minio.version}</version>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
