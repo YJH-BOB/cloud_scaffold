@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>rc-file</module>
+        <module>rc-minio</module>
     </modules>
 
 

@@ -58,6 +58,7 @@
         <jaxb-bind.version>2.3.1</jaxb-bind.version>
         <jaxb-core.version>2.3.0.1</jaxb-core.version>
         <security.version>2.2.5.RELEASE</security.version>
+        <minio.version>8.5.7</minio.version>
     </properties>
 
 
@@ -215,12 +216,11 @@
                 <artifactId>jaxb-impl</artifactId>
                 <version>${jaxb-bind.version}</version>
             </dependency>
-<!--            &lt;!&ndash; 正常来说，作为 一个starter ，应该是有对应依赖版本的，不知道 boot3 为什么没有 ，于是添加&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.cloud</groupId>-->
-<!--                <artifactId>spring-cloud-starter-security</artifactId>-->
-<!--                <version>${security.version}</version>-->
-<!--            </dependency>-->
+            <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
