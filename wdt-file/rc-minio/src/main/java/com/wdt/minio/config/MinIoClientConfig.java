@@ -25,5 +25,4 @@ public class MinIoClientConfig {
                 .credentials(minioClientProperties.getAccessKey(), minioClientProperties.getSecretKey())
                 .build();
     }
-
 }
