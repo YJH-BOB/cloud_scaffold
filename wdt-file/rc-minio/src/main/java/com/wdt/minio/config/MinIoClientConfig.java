@@ -24,6 +24,7 @@ public class MinIoClientConfig {
                 .endpoint(minioClientProperties.getEndpoint())
                 .credentials(minioClientProperties.getAccessKey(), minioClientProperties.getSecretKey())
                 .build();
+        // 测试111111
     }
 
 }
