@@ -28,7 +28,7 @@ import java.util.zip.ZipOutputStream;
 
 @Component
 @Slf4j
-public class MinioUtil {
+public class MinioManager {
     /**
      * minio 操作
      * <p>
