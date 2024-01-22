@@ -165,7 +165,7 @@ public class MinioManager {
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + objectItem.getObjectName() + "\"");
         } catch (IOException | MinioException e) {
-            throw new BusinessException(CodeEnum.UPLOAD_FIFE_ERR);
+            throw new BusinessException(CodeEnum.DOWNLOAD_FIFE_ERR);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException(e);
         }
@@ -189,7 +189,8 @@ public class MinioManager {
             response.setContentType("application/zip");
             response.setHeader("Content-Disposition", "attachment; filename=\"download.zip\"");
         } catch (IOException | MinioException e) {
-            throw new BusinessException(CodeEnum.UPLOAD_FIFE_ERR);
+            log.info("文件下载异常 {}" ,e.getMessage());
+            throw new BusinessException(CodeEnum.DOWNLOAD_FIFE_ERR);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException(e);
         }
@@ -202,11 +203,11 @@ public class MinioManager {
      * @param zipOut     压缩包输出流
      */
     private void downloadAndAddToZip(ObjectItem objectItem, ZipOutputStream zipOut) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException {
-        // 下载文件
-        downloadObject(objectItem, zipOut);
         ZipEntry zipEntry = new ZipEntry(objectItem.getObjectName());
         zipOut.putNextEntry(zipEntry);
+        downloadObject(objectItem, zipOut);
     }
+
 
     /**
      * 下载文件内容到输出流

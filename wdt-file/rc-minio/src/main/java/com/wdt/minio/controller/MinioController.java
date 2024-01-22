@@ -39,7 +39,7 @@ public class MinioController {
     @Log("文件上传-上传多个文件")
     @PostMapping("/upload/multiple")
     public Result<List<String>> uploads(@RequestParam("bucketName") String bucketName,
-                                        @RequestPart("file") MultipartFile[] multipartFiles) {
+                                        @RequestPart("files") MultipartFile[] multipartFiles) {
         List<String> objectNames = minioManager.upload(multipartFiles, bucketName);
         return Optional.ofNullable(objectNames)
                 .filter(objects -> !objects.isEmpty())
@@ -49,15 +49,16 @@ public class MinioController {
 
     @Log("文件下载-下载多个文件，返回压缩包")
     @PostMapping("/download/multiple")
-    public void downloads(@RequestParam("objectItems") ObjectItem[] objectItems,
+    public void downloads(@RequestBody ObjectItem[] objectItems,
                           HttpServletResponse response) {
         minioManager.download(objectItems, response);
     }
 
     @Log("文件下载-下载单个文件")
     @PostMapping("/download/single")
-    public void download(@RequestParam("objectItem") ObjectItem objectItems,
+    public void download(@RequestBody ObjectItem objectItem,
                          HttpServletResponse response) {
-        minioManager.download(objectItems, response);
+        minioManager.download(objectItem, response);
     }
+
 }
