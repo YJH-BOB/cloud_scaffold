@@ -54,7 +54,7 @@ public class JWTUtil {
         return username != null && username.equals(userName) && !isTokenExpired(token);
     }
 
-    private static boolean isTokenExpired(String token) {
+    public static boolean isTokenExpired(String token) {
         Date expirationDate = getExpirationDateFromToken(token);
         return expirationDate.before(new Date());
     }
