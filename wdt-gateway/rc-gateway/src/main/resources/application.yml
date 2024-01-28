@@ -18,3 +18,9 @@ spring:
             - Path=/api-system/**
           filters:
             - PreserveHostHeader
+        - id: minio
+          uri: lb://rc-minio
+          predicates:
+            - Path=/api-minio/**
+          filters:
+            - PreserveHostHeader
