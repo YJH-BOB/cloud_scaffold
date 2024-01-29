@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class TopicConsumerListener {
     @JmsListener(destination = "${spring.activemq.topic-name}", containerFactory = "topicListener")
-    public void readActiveQueue(String message) {
+    public void readActiveTopic(String message) {
         log.info("topic接受到：{}",message);
     }
 
