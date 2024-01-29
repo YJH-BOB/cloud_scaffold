@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: rc-activemqConsume
+  profiles:
+    active: dev
+  cloud:
+    server-addr: 127.0.0.1:8848
+    namespace: cloud-scaffold
+    nacos:
+      # 配置中心配置
+      config:
+        server-addr: ${spring.cloud.server-addr}
+        namespace: ${spring.cloud.namespace}
+        file-extension: yml
+        shared-configs:
+          - data-id: global-config.yml
+          - data-id: global-config-dev.yml
+        # 注册中心配置
+      discovery:
+        server-addr: ${spring.cloud.server-addr}
+        namespace: ${spring.cloud.namespace}
+

@@ -30,6 +30,7 @@
 <!--        <module>wdt-datasync</module>-->
         <!-- 业务 -->
 <!--        <module>wdt-business</module>-->
+        <module>wdt-demo</module>
     </modules>
 
     <!-- 统一管理版本版本 -->
