@@ -21,7 +21,7 @@ public class DefaultExceptionAdvice {
         return Result.succeed(businessException.getMessage(),businessException.getCode());
     }
     @ExceptionHandler(Exception.class)
-    public Result<Object> handleException(HttpServletRequest request, Exception ex) {
+    public Result<Void> handleException(HttpServletRequest request, Exception ex) {
         // 异常处理逻辑
         return Result.succeed(400, "未知异常");
     }

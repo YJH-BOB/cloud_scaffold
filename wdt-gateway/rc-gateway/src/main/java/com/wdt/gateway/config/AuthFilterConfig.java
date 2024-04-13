@@ -101,7 +101,7 @@ public class AuthFilterConfig {
         log.warn("token异常处理,请求路径:{}", exchange.getRequest().getPath());
         serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
         serverHttpResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        Result<Object> result = Result.failed(codeEnum.getCode(), codeEnum.getMsg());
+        Result<Void> result = Result.failed(codeEnum.getCode(), codeEnum.getMsg());
         DataBuffer dataBuffer = serverHttpResponse.bufferFactory()
                 .wrap(JSON.toJSONStringWithDateFormat(result, JSON.DEFFAULT_DATE_FORMAT)
                         .getBytes(StandardCharsets.UTF_8));

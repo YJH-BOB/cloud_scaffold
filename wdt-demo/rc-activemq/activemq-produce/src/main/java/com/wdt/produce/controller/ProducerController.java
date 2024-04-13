@@ -23,13 +23,13 @@ public class ProducerController {
     private Topic topic;
 
     @PostMapping("/queue/send")
-    public Result<Object> sendQueue(@RequestBody String msg) {
+    public Result<Void> sendQueue(@RequestBody String msg) {
         this.sendMessage(this.queue, msg);
         return Result.succeed("success");
     }
 
     @PostMapping("/topic/send")
-    public Result<Object> sendTopic(@RequestBody String msg) {
+    public Result<Void> sendTopic(@RequestBody String msg) {
         this.sendMessage(this.topic, msg);
         return Result.succeed("success");
     }

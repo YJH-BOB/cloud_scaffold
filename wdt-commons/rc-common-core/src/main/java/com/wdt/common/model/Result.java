@@ -33,11 +33,11 @@ public class Result<T> implements Serializable {
     }
 
     //提供返回成功的方法
-    public static Result<Object> succeed() {
+    public static Result<Void> succeed() {
         return Result.of("success", null, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
     }
 
-    public static Result<Object> succeed(String msg) {
+    public static Result<Void> succeed(String msg) {
         return Result.of("success", null, CodeEnum.SUCCESS.getCode(), msg);
     }
 
@@ -53,12 +53,12 @@ public class Result<T> implements Serializable {
         return Result.of("success", data, code, msg);
     }
 
-    public static Result<Object> succeed(Integer code, String msg) {
+    public static Result<Void> succeed(Integer code, String msg) {
         return Result.of("success", null, code, msg);
     }
 
 
-    public static Result<Object> failed() {
+    public static Result<Void> failed() {
         return Result.of("fail", null, CodeEnum.ERROR.getCode(), CodeEnum.ERROR.getMsg());
     }
 
@@ -74,7 +74,7 @@ public class Result<T> implements Serializable {
         return Result.of("fail", data, code, msg);
     }
 
-    public static Result<Object> failed(Integer code, String msg) {
+    public static Result<Void> failed(Integer code, String msg) {
         return Result.of("fail", null, code, msg);
     }
 
